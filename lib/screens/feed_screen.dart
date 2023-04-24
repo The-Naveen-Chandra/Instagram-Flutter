@@ -25,12 +25,11 @@ class FeedScreen extends StatelessWidget {
               Icons.favorite_border,
               size: 26,
             ),
-            padding: EdgeInsets.zero,
           ),
           IconButton(
             onPressed: () {},
             icon: SvgPicture.asset(
-              'assets/icons/facebook-messenger.svg',
+              'assets/icons/messenger.svg',
               // ignore: deprecated_member_use
               color: primaryColor,
               height: 24,
