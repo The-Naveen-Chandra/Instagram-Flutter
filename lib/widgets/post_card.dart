@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
+import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
@@ -173,7 +174,11 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommetsScreen(),
+                  ),
+                ),
                 icon: SvgPicture.asset(
                   "assets/icons/comment.svg",
                   // ignore: deprecated_member_use
@@ -249,11 +254,18 @@ class _PostCardState extends State<PostCard> {
                   onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: const Text(
-                      "View all 200 comments",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: secondaryColor,
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const CommetsScreen(),
+                        ),
+                      ),
+                      child: const Text(
+                        "View all 200 comments",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: secondaryColor,
+                        ),
                       ),
                     ),
                   ),
