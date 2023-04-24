@@ -8,7 +8,9 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: mobileBackgroundColor,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
     );
   }
 }
