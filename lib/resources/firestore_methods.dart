@@ -69,7 +69,7 @@ class FirestoreMethods {
     String name,
     String profilePic,
   ) async {
-     String res = "Some error occurred";
+    String res = "Some error occurred";
     try {
       if (text.isNotEmpty) {
         String commentId = const Uuid().v1();
@@ -92,7 +92,19 @@ class FirestoreMethods {
       }
     } catch (e) {
       res = e.toString();
-    }  
+    }
+    return res;
+  }
+
+  // deleting the post
+  Future<String> deletePost(String postId) async {
+    String res = "Some error occurred";
+    try {
+      await _firestore.collection('posts').doc(postId).delete();
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
     return res;
   }
 }
