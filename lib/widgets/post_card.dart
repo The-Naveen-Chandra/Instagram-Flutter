@@ -176,7 +176,9 @@ class _PostCardState extends State<PostCard> {
               IconButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => CommetsScreen(),
+                    builder: (context) => CommetsScreen(
+                      snap: widget.snap,
+                    ),
                   ),
                 ),
                 icon: SvgPicture.asset(
@@ -257,7 +259,9 @@ class _PostCardState extends State<PostCard> {
                     child: InkWell(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const CommetsScreen(),
+                          builder: (context) => CommetsScreen(
+                            snap: widget.snap,
+                          ),
                         ),
                       ),
                       child: const Text(
