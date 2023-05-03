@@ -1,36 +1,69 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/theme.dart';
 import 'package:instagram_clone/widgets/follow_button.dart';
 import 'package:instagram_clone/widgets/highlight_circle.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final String uid;
+  const ProfileScreen({
+    super.key,
+    required this.uid,
+  });
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  var userData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+
+      // get post length
+      var postSnap = await FirebaseFirestore.instance.collection('posts');
+
+      userData = userSnap.data()!;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        e.toString(),
+        context,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: Row(
-          children: const [
-            Icon(Icons.lock_outline_rounded),
-            SizedBox(
+          children: [
+            const Icon(Icons.lock_outline_rounded),
+            const SizedBox(
               width: 8,
             ),
             Text(
-              'username',
-              style: TextStyle(
+              userData['username'],
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
           ],
@@ -70,10 +103,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       backgroundColor: Colors.grey,
                       backgroundImage: NetworkImage(
-                        "https://images.unsplash.com/photo-1682310934381-ea1437927bd0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNzV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                        userData['photoUrl'],
                       ),
                       radius: 40,
                     ),
@@ -101,9 +134,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(top: 10),
-                  child: const Text(
-                    'username',
-                    style: TextStyle(
+                  child:  Text(
+                    userData['username'],
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -112,9 +145,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(top: 1),
-                  child: const Text(
-                    "Some description...\nBeautiful things don't\nask for attention.",
-                    style: TextStyle(
+                  child:  Text(
+                    userData['bio'],
+                    style: const TextStyle(
                       height: 1.3,
                       fontSize: 14,
                     ),
@@ -163,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     const SizedBox(height: 20),
                     Row(
-                      children: [
+                      children: const [
                         HighlightCircle(
                           text: "Cars",
                           photoUrl:
