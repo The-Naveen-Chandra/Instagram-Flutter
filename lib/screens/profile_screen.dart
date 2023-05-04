@@ -8,6 +8,7 @@ import 'package:instagram_clone/widgets/highlight_circle.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
+
   const ProfileScreen({
     super.key,
     required this.uid,
@@ -78,7 +79,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: mobileBackgroundColor,
               title: Row(
                 children: [
-                  const Icon(Icons.lock_outline_rounded),
+                  FirebaseAuth.instance.currentUser!.uid == widget.uid
+                      ? const Icon(Icons.lock_outline_rounded)
+                      : Container(),
                   const SizedBox(
                     width: 8,
                   ),
@@ -231,34 +234,72 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 20),
-                          Row(
-                            children: const [
-                              HighlightCircle(
-                                text: "Cars",
-                                photoUrl:
-                                    "https://images.unsplash.com/photo-1682329782353-1f06c794b5b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-                              ),
-                              HighlightCircle(
-                                text: "💖",
-                                photoUrl:
-                                    "https://images.unsplash.com/photo-1682356828551-96826d14382b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-                              ),
-                              HighlightCircle(
-                                text: "New",
-                                isadd: true,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      FirebaseAuth.instance.currentUser!.uid == widget.uid
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 20),
+                                Row(
+                                  children: const [
+                                    HighlightCircle(
+                                      text: "Cars",
+                                      photoUrl:
+                                          "https://images.unsplash.com/photo-1682329782353-1f06c794b5b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+                                    ),
+                                    HighlightCircle(
+                                      text: "💖",
+                                      photoUrl:
+                                          "https://images.unsplash.com/photo-1682356828551-96826d14382b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+                                    ),
+                                    HighlightCircle(
+                                      text: "New",
+                                      isadd: true,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          : Container(),
                     ],
                   ),
-                )
+                ),
+                const Divider(),
+                FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection('posts')
+                      .where('uid', isEqualTo: widget.uid)
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: (snapshot.data! as dynamic).docs.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 5,
+                              mainAxisSpacing: 1.5,
+                              childAspectRatio: 1),
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot snap =
+                            (snapshot.data! as dynamic).docs[index];
+
+                        return Image(
+                          image: NetworkImage(
+                            snap['postUrl'],
+                          ),
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    );
+                  },
+                ),
               ],
             ),
           );
