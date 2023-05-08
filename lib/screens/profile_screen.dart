@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
+import 'package:instagram_clone/screens/screens.dart';
 import 'package:instagram_clone/utils/theme.dart';
 import 'package:instagram_clone/widgets/widgets.dart';
 
@@ -246,7 +248,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   text: "Sign Out",
                                   backgroundColor: Colors.grey.shade900,
                                   textColor: primaryColor,
-                                  function: () {},
+                                  function: () async {
+                                    await AuthMethods().signOut();
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginScreen(),
+                                      ),
+                                    );
+                                  },
                                 )
                               : FollowButton(
                                   text: "Message",
