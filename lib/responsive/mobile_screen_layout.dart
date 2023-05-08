@@ -45,60 +45,63 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         onPageChanged: onPageChanged,
         children: homeScreenItems,
       ),
-      bottomNavigationBar: CupertinoTabBar(
-        backgroundColor: mobileBackgroundColor,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _page == 0
-                  ? ("assets/icons/home-filled.svg")
-                  : ("assets/icons/home-outlined.svg"),
-              color: _page == 0 ? primaryColor : secondaryColor,
-              height: 30,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: CupertinoTabBar(
+          backgroundColor: mobileBackgroundColor,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _page == 0
+                    ? ("assets/icons/home-filled.svg")
+                    : ("assets/icons/home-outlined.svg"),
+                color: _page == 0 ? primaryColor : secondaryColor,
+                height: 30,
+              ),
+              label: '',
+              backgroundColor: primaryColor,
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _page == 1
-                  ? ("assets/icons/search-filled.svg")
-                  : ("assets/icons/search.svg"),
-              color: _page == 1 ? primaryColor : secondaryColor,
-              height: 32,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _page == 1
+                    ? ("assets/icons/search-filled.svg")
+                    : ("assets/icons/search.svg"),
+                color: _page == 1 ? primaryColor : secondaryColor,
+                height: 32,
+              ),
+              label: '',
+              backgroundColor: primaryColor,
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              "assets/icons/new-post.svg",
-              color: _page == 2 ? primaryColor : secondaryColor,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                "assets/icons/new-post.svg",
+                color: _page == 2 ? primaryColor : secondaryColor,
+              ),
+              label: '',
+              backgroundColor: primaryColor,
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _page == 3
-                  ? ("assets/icons/reel-tap.svg")
-                  : ("assets/icons/reel.svg"),
-              color: _page == 3 ? primaryColor : secondaryColor,
-              height: 24,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _page == 3
+                    ? ("assets/icons/reel-tap.svg")
+                    : ("assets/icons/reel.svg"),
+                color: _page == 3 ? primaryColor : secondaryColor,
+                height: 24,
+              ),
+              label: '',
+              backgroundColor: primaryColor,
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: _page == 4 ? primaryColor : secondaryColor,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+                color: _page == 4 ? primaryColor : secondaryColor,
+              ),
+              label: '',
+              backgroundColor: primaryColor,
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-        ],
-        onTap: navigationTapped,
+          ],
+          onTap: navigationTapped,
+        ),
       ),
     );
   }
