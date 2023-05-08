@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/utils/theme.dart';
-import 'package:instagram_clone/widgets/follow_button.dart';
-import 'package:instagram_clone/widgets/highlight_circle.dart';
+import 'package:instagram_clone/widgets/widgets.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
@@ -99,24 +99,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               centerTitle: false,
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    "assets/icons/new-post.svg",
-                    // ignore: deprecated_member_use
-                    color: primaryColor,
-                    height: 24,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    "assets/icons/menu-1.svg",
-                    // ignore: deprecated_member_use
-                    color: primaryColor,
-                    height: 24,
-                  ),
-                )
+                FirebaseAuth.instance.currentUser!.uid == widget.uid
+                    ? IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          "assets/icons/new-post.svg",
+                          // ignore: deprecated_member_use
+                          color: primaryColor,
+                          height: 24,
+                        ),
+                      )
+                    : Container(),
+                FirebaseAuth.instance.currentUser!.uid == widget.uid
+                    ? IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          "assets/icons/menu-1.svg",
+                          // ignore: deprecated_member_use
+                          color: primaryColor,
+                          height: 24,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.more_vert),
+                        iconSize: 24,
+                      ),
+                const Divider(),
               ],
             ),
             body: ListView(
@@ -199,23 +208,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       text: "Unfollow",
                                       backgroundColor: Colors.grey.shade900,
                                       textColor: primaryColor,
-                                      function: () {},
+                                      function: () async {
+                                        await FirestoreMethods().followUser(
+                                          FirebaseAuth
+                                              .instance.currentUser!.uid,
+                                          userData['uid'],
+                                        );
+
+                                        setState(() {
+                                          isFollowing = false;
+                                          followers--;
+                                        });
+                                      },
                                     )
                                   : FollowButton(
                                       text: "Follow",
                                       backgroundColor: Colors.blue,
                                       textColor: primaryColor,
-                                      function: () {},
+                                      function: () async {
+                                        await FirestoreMethods().followUser(
+                                          FirebaseAuth
+                                              .instance.currentUser!.uid,
+                                          userData['uid'],
+                                        );
+
+                                        setState(() {
+                                          isFollowing = true;
+                                          followers++;
+                                        });
+                                      },
                                     ),
                           const SizedBox(
                             width: 6,
                           ),
-                          FollowButton(
-                            text: "Share profile",
-                            backgroundColor: Colors.grey.shade900,
-                            textColor: primaryColor,
-                            function: () {},
-                          ),
+                          FirebaseAuth.instance.currentUser!.uid == widget.uid
+                              ? FollowButton(
+                                  text: "Sign Out",
+                                  backgroundColor: Colors.grey.shade900,
+                                  textColor: primaryColor,
+                                  function: () {},
+                                )
+                              : FollowButton(
+                                  text: "Message",
+                                  backgroundColor: Colors.grey.shade900,
+                                  textColor: primaryColor,
+                                  function: () {},
+                                ),
                           IconButton(
                             onPressed: () {},
                             icon: Container(
