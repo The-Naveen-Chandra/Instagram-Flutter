@@ -5,7 +5,6 @@ import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/screens/comments_screen.dart';
-import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/theme.dart';
 import 'package:instagram_clone/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +12,7 @@ import 'package:provider/provider.dart';
 
 class PostCard extends StatefulWidget {
   final snap;
+
   const PostCard({
     super.key,
     this.snap,
@@ -51,6 +51,7 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
+    final width = MediaQuery.of(context).size.width;
 
     return Container(
       color: mobileBackgroundColor,
@@ -146,11 +147,21 @@ class _PostCardState extends State<PostCard> {
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.45,
+                  height: MediaQuery.of(context).size.height * 0.75,
                   width: double.infinity,
-                  child: Image.network(
-                    widget.snap['postUrl'],
-                    fit: BoxFit.cover,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1.0,
+                        color: width > webScreenSize
+                            ? secondaryColor
+                            : mobileBackgroundColor,
+                      ),
+                    ),
+                    child: Image.network(
+                      widget.snap['postUrl'],
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 AnimatedOpacity(
@@ -315,6 +326,14 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
               ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(
+              top: 20,
+            ),
+            child: Divider(
+              thickness: 1.2,
             ),
           ),
         ],
