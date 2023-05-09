@@ -246,8 +246,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           FirebaseAuth.instance.currentUser!.uid == widget.uid
                               ? FollowButton(
                                   text: "Sign Out",
-                                  backgroundColor: Colors.grey.shade900,
-                                  textColor: primaryColor,
+                                  backgroundColor: Colors.white,
+                                  textColor: Colors.black,
                                   function: () async {
                                     await AuthMethods().signOut();
                                     Navigator.of(context).pushReplacement(
