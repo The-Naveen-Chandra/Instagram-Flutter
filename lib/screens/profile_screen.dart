@@ -208,8 +208,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               : isFollowing
                                   ? FollowButton(
                                       text: "Unfollow",
-                                      backgroundColor: Colors.grey.shade900,
-                                      textColor: primaryColor,
+                                      backgroundColor: Colors.white,
+                                      textColor: Colors.black,
                                       function: () async {
                                         await FirestoreMethods().followUser(
                                           FirebaseAuth
