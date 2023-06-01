@@ -82,8 +82,9 @@ class _LoginScreenState extends State<LoginScreen> {
               // svg image
               SvgPicture.asset(
                 "assets/ic_instagram.svg",
+
                 // ignore: deprecated_member_use
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
 
               const SizedBox(

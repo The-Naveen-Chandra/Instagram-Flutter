@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
-import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/global_veriables.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -27,11 +26,11 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Colors.grey.shade900,
+            color: Theme.of(context).colorScheme.secondary,
           ),
 
           height: 40, // adjust the height as needed
@@ -42,7 +41,7 @@ class _SearchScreenState extends State<SearchScreen> {
               SvgPicture.asset(
                 "assets/icons/search-filled.svg",
                 // ignore: deprecated_member_use
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.primary,
                 height: 20,
               ),
               const SizedBox(

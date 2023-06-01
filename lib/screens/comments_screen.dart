@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
-import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/comment_card.dart';
 import 'package:provider/provider.dart';
 
@@ -34,10 +33,16 @@ class _CommetsScreenState extends State<CommetsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        leading: BackButton(
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        title: Text(
           "Comments",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         centerTitle: false,
         actions: [
@@ -47,7 +52,7 @@ class _CommetsScreenState extends State<CommetsScreen> {
               'assets/icons/send.svg',
               height: 24,
               // ignore: deprecated_member_use
-              color: primaryColor,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],
@@ -79,7 +84,7 @@ class _CommetsScreenState extends State<CommetsScreen> {
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
-          color: Colors.grey.shade900,
+          color: Theme.of(context).colorScheme.secondary,
           height: kToolbarHeight,
           margin:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -99,6 +104,9 @@ class _CommetsScreenState extends State<CommetsScreen> {
                     controller: _commentController,
                     decoration: InputDecoration(
                       hintText: "Comment as ${user.username}",
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                       border: InputBorder.none,
                     ),
                   ),

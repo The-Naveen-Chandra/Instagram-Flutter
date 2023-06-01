@@ -103,11 +103,11 @@ class _SignupScreenState extends State<SignupScreen> {
               SvgPicture.asset(
                 "assets/ic_instagram.svg",
                 // ignore: deprecated_member_use
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
 
               const SizedBox(
-                height: 64,
+                height: 40,
               ),
               // circular widget to accept and show out profile pic
               Stack(

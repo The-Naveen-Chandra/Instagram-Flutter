@@ -48,14 +48,16 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(top: 8),
         child: CupertinoTabBar(
-          backgroundColor: mobileBackgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 _page == 0
                     ? ("assets/icons/home-filled.svg")
                     : ("assets/icons/home-outlined.svg"),
-                color: _page == 0 ? primaryColor : secondaryColor,
+                color: _page == 0
+                    ? Theme.of(context).colorScheme.primary
+                    : secondaryColor,
                 height: 30,
               ),
               label: '',
@@ -66,7 +68,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 _page == 1
                     ? ("assets/icons/search-filled.svg")
                     : ("assets/icons/search.svg"),
-                color: _page == 1 ? primaryColor : secondaryColor,
+                color: _page == 1
+                    ? Theme.of(context).colorScheme.primary
+                    : secondaryColor,
                 height: 32,
               ),
               label: '',
@@ -75,7 +79,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/icons/new-post.svg",
-                color: _page == 2 ? primaryColor : secondaryColor,
+                color: _page == 2
+                    ? Theme.of(context).colorScheme.primary
+                    : secondaryColor,
               ),
               label: '',
               backgroundColor: primaryColor,
@@ -85,7 +91,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 _page == 3
                     ? ("assets/icons/reel-tap.svg")
                     : ("assets/icons/reel.svg"),
-                color: _page == 3 ? primaryColor : secondaryColor,
+                color: _page == 3
+                    ? Theme.of(context).colorScheme.primary
+                    : secondaryColor,
                 height: 24,
               ),
               label: '',
@@ -94,7 +102,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,
-                color: _page == 4 ? primaryColor : secondaryColor,
+                color: _page == 4
+                    ? Theme.of(context).colorScheme.primary
+                    : secondaryColor,
               ),
               label: '',
               backgroundColor: primaryColor,

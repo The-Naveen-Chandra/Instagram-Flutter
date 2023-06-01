@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/responsive/responsive.dart';
 import 'package:instagram_clone/screens/screens.dart';
+import 'package:instagram_clone/theme/dark_theme.dart';
+import 'package:instagram_clone/theme/light_theme.dart';
 import 'package:instagram_clone/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -40,12 +42,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: mobileBackgroundColor,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-        ),
+        theme: lightTheme,
+        darkTheme: darkTheme,
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/global_veriables.dart';
 import 'package:instagram_clone/widgets/widgets.dart';
 
@@ -21,20 +20,22 @@ class _FeedScreenState extends State<FeedScreen> {
       appBar: width > webScreenSize
           ? null
           : AppBar(
-              backgroundColor: mobileBackgroundColor,
+              automaticallyImplyLeading: false,
+              backgroundColor: Theme.of(context).colorScheme.background,
               centerTitle: false,
               title: SvgPicture.asset(
                 'assets/ic_instagram.svg',
                 // ignore: deprecated_member_use
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.primary,
                 height: 32,
               ),
               actions: [
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.favorite_border,
                     size: 26,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 IconButton(
@@ -42,7 +43,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   icon: SvgPicture.asset(
                     'assets/icons/messenger.svg',
                     // ignore: deprecated_member_use
-                    color: primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                     height: 24,
                   ),
                 ),

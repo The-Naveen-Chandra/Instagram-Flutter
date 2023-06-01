@@ -54,7 +54,7 @@ class _PostCardState extends State<PostCard> {
     final width = MediaQuery.of(context).size.width;
 
     return Container(
-      color: mobileBackgroundColor,
+      color: Theme.of(context).colorScheme.background,
       padding: const EdgeInsets.symmetric(
         vertical: 10,
       ),
@@ -206,9 +206,9 @@ class _PostCardState extends State<PostCard> {
                           color: Colors.red,
                           size: 26,
                         )
-                      : const Icon(
+                      : Icon(
                           Icons.favorite_border,
-                          color: primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                           size: 26,
                         ),
                 ),
@@ -224,7 +224,7 @@ class _PostCardState extends State<PostCard> {
                 icon: SvgPicture.asset(
                   "assets/icons/comment.svg",
                   // ignore: deprecated_member_use
-                  color: primaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               IconButton(
@@ -232,7 +232,7 @@ class _PostCardState extends State<PostCard> {
                 icon: SvgPicture.asset(
                   "assets/icons/send.svg",
                   // ignore: deprecated_member_use
-                  color: primaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                   height: 24,
                 ),
               ),
@@ -241,8 +241,9 @@ class _PostCardState extends State<PostCard> {
                   alignment: Alignment.bottomRight,
                   child: IconButton(
                     onPressed: () {},
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.bookmark_border,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 26,
                     ),
                   ),
@@ -281,13 +282,15 @@ class _PostCardState extends State<PostCard> {
                       children: [
                         TextSpan(
                           text: widget.snap['username'],
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary),
                         ),
                         TextSpan(
-                          text: '  ${widget.snap['description']}',
-                        ),
+                            text: '  ${widget.snap['description']}',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            )),
                       ],
                     ),
                   ),
@@ -314,15 +317,13 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    DateFormat.yMMMd().format(
-                      widget.snap['datePublished'].toDate(),
-                    ),
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: secondaryColor,
-                    ),
+                Text(
+                  DateFormat.yMMMd().format(
+                    widget.snap['datePublished'].toDate(),
+                  ),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: secondaryColor,
                   ),
                 ),
               ],

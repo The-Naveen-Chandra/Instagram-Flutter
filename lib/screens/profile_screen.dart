@@ -85,20 +85,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Scaffold(
               appBar: AppBar(
-                backgroundColor: mobileBackgroundColor,
+                automaticallyImplyLeading: false,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 title: Row(
                   children: [
                     FirebaseAuth.instance.currentUser!.uid == widget.uid
-                        ? const Icon(Icons.lock_outline_rounded)
+                        ? Icon(
+                            Icons.lock_outline_rounded,
+                            color: Theme.of(context).colorScheme.primary,
+                          )
                         : Container(),
                     const SizedBox(
                       width: 8,
                     ),
                     Text(
                       userData['username'],
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     const SizedBox(
@@ -114,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           icon: SvgPicture.asset(
                             "assets/icons/new-post.svg",
                             // ignore: deprecated_member_use
-                            color: primaryColor,
+                            color: Theme.of(context).colorScheme.primary,
                             height: 24,
                           ),
                         )
@@ -125,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           icon: SvgPicture.asset(
                             "assets/icons/menu-1.svg",
                             // ignore: deprecated_member_use
-                            color: primaryColor,
+                            color: Theme.of(context).colorScheme.primary,
                             height: 24,
                           ),
                         )
@@ -217,7 +222,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 : isFollowing
                                     ? FollowButton(
                                         text: "Unfollow",
-                                        backgroundColor: Colors.white,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                         textColor: Colors.black,
                                         function: () async {
                                           await FirestoreMethods().followUser(
@@ -255,7 +262,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             FirebaseAuth.instance.currentUser!.uid == widget.uid
                                 ? FollowButton(
                                     text: "Sign Out",
-                                    backgroundColor: Colors.white,
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.tertiary,
                                     textColor: Colors.black,
                                     function: () async {
                                       await AuthMethods().signOut();
@@ -277,7 +285,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onPressed: () {},
                               icon: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade900,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 height: 40,
@@ -292,13 +301,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                         FirebaseAuth.instance.currentUser!.uid == widget.uid
-                            ? Column(
+                            ? const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: 20),
                                   Row(
-                                    children: const [
+                                    children: [
                                       HighlightCircle(
                                         text: "Cars",
                                         photoUrl:
@@ -379,10 +388,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           margin: const EdgeInsets.only(top: 4),
           child: Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
-              color: primaryColor,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
